@@ -21,7 +21,6 @@ void main() {
         ),
       );
 
-      // Build myWidget and trigger a frame.
       await tester.pumpWidget(myWidget);
 
       // Verify myWidget shows some text

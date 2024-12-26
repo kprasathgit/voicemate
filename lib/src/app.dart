@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:voicemate/src/initscreen/initscreen.view.dart';
 import 'package:voicemate/src/loginscreen/loginscreen.view.dart';
 
 /// The Widget that configures your application.
@@ -43,11 +44,11 @@ class MyApp extends StatelessWidget {
       onGenerateTitle: (BuildContext context) =>
           AppLocalizations.of(context)!.appTitle,
 
-     debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       // Define a light and dark color theme. Then, read the user's
       // preferred ThemeMode (light, dark, or system default) from the
       // SettingsController to display the correct theme.
-      theme: ThemeData(),
+      theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
       themeMode: ThemeMode.system,
 
@@ -58,8 +59,10 @@ class MyApp extends StatelessWidget {
           settings: routeSettings,
           builder: (BuildContext context) {
             switch (routeSettings.name) {
+              case LoginScreenView.routeName:
+                return const LoginScreenView();
               default:
-                return LoginScreenView();
+                return const InitScreenView();
             }
           },
         );

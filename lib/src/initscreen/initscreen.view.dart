@@ -14,7 +14,7 @@ class _InitScreenViewState extends State<InitScreenView> {
   @override
   void initState() {
     Future.delayed(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () {
         Navigator.of(context).popAndPushNamed(LoginScreenView.routeName);
       },
@@ -29,14 +29,14 @@ class _InitScreenViewState extends State<InitScreenView> {
         decoration: BoxDecoration(
             gradient: RadialGradient(
           colors: [Colors.blue.shade900, Colors.black],
-          center: Alignment(0, -0.5),
+          center: const Alignment(0, -0.5),
           radius: 2,
         )),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 //Animated Loading Icons
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SpinKitPulse(
@@ -49,7 +49,7 @@ class _InitScreenViewState extends State<InitScreenView> {
                 SpinKitPulse(color: Colors.purpleAccent, size: 40.0),
               ],
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             //Loading Message
             Text(
               'Initializing...',
@@ -58,7 +58,7 @@ class _InitScreenViewState extends State<InitScreenView> {
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
                 shadows: [
-                  Shadow(
+                  const Shadow(
                       color: Colors.tealAccent,
                       blurRadius: 5,
                       offset: Offset(0, 2))
@@ -66,7 +66,7 @@ class _InitScreenViewState extends State<InitScreenView> {
               ),
             ),
 
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // Animated Tagline
 
             Text(

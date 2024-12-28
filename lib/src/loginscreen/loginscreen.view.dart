@@ -37,12 +37,12 @@ class _LoginScreenViewState extends State<LoginScreenView>
     userNameFocus = FocusNode();
     passwordFocus = FocusNode();
     controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 10))
+        AnimationController(vsync: this, duration: const Duration(seconds: 10))
           ..repeat();
-    // backGroundAnimation =
-    //     Tween<double>(begin: 0, end: 6.28).animate(controller);
-    logoRotationAnimation =
-        Tween<double>(begin: 0, end: 2 * pi).animate(controller);
+    backGroundAnimation =
+        Tween<double>(begin: 0, end: 6.28).animate(controller);
+    // logoRotationAnimation =
+    //     Tween<double>(begin: 0, end: 2 * pi).animate(controller);
     logoRotationAnimation =
         Tween<double>(begin: 0, end: 6.28).animate(controller);
     userNameFocus.requestFocus();
@@ -55,7 +55,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
     isWeb = kIsWeb; // Check if the platform is web
     orientation = MediaQuery.of(context).orientation;
     final width = screenSize.width;
-    final height = screenSize.height;
+    // final height = screenSize.height;
     final theme = Theme.of(context);
     isDarkMode = theme.brightness == Brightness.dark;
     final padding = orientation == Orientation.portrait
@@ -120,10 +120,12 @@ class _LoginScreenViewState extends State<LoginScreenView>
                         colors: [
                           Colors.purple.shade900,
                           Colors.blue.shade900,
-                          Colors.white
+                          // Colors.blueGrey.shade100
+                          Colors.blueGrey.shade300
                         ],
-                        center: Alignment.center,
+                        center: Alignment.topCenter,
                         radius: 1.0,
+                        //  transform: GradientRotation(backGroundAnimation.value),
                       ),
                     ),
                   );
@@ -132,12 +134,18 @@ class _LoginScreenViewState extends State<LoginScreenView>
             ),
             // Main content (Login UI)
             isWeb
-                ? Positioned(
-                    left: screenSize.width * 0.03,
-                    top: screenSize.height * 0,
-                    bottom: screenSize.height * 0.15,
-                    width: screenSize.width * 0.4,
-                    child: mainUi(),
+                ?
+                // Positioned(
+                //     left: screenSize.width * 0.03,
+                //     top: screenSize.height * 0,
+                //     bottom: screenSize.height * 0.15,
+                //     width: screenSize.width * 0.4,
+                //     child: mainUi(),
+                //   )
+                Align(
+                    alignment: Alignment(0, 0),
+                    child:
+                        FractionallySizedBox(widthFactor: 0.3, child: mainUi()),
                   )
                 : Align(
                     alignment: Alignment.center,
@@ -156,8 +164,8 @@ class _LoginScreenViewState extends State<LoginScreenView>
       elevation: 8,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24), // Smooth rounded corners
-          side: BorderSide(color: Colors.transparent)),
-      color: Colors.white30,
+          side: const BorderSide(color: Colors.transparent)),
+      color: Colors.white24,
       child: SafeArea(
           child:
               // ListView(
@@ -174,7 +182,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
               //   ],
               // ),
               SingleChildScrollView(
-        padding: EdgeInsets.all(0),
+        padding: const EdgeInsets.all(0),
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
@@ -208,7 +216,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
                 width: logoSize,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: LinearGradient(
+                  gradient: const LinearGradient(
                     colors: [Colors.tealAccent, Colors.blueAccent],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
@@ -235,7 +243,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
             fontWeight: FontWeight.bold,
             color: Colors.white,
             shadows: [
-              Shadow(
+              const Shadow(
                 color: Colors.tealAccent,
                 blurRadius: 3,
               ),
@@ -269,18 +277,24 @@ class _LoginScreenViewState extends State<LoginScreenView>
   Widget _buildDivider() {
     return const Padding(
       padding: EdgeInsets.symmetric(vertical: 20),
-      child: Row(
-        children: [
-          Expanded(child: Divider(color: Colors.white70)),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Text(
-              'OR',
-              style: TextStyle(color: Colors.white70),
+      child: FractionallySizedBox(
+        widthFactor: 0.95,
+        child: Row(
+          children: [
+            Expanded(
+                child: Divider(
+              color: Colors.white70,
+            )),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 5.0),
+              child: Text(
+                'OR',
+                style: TextStyle(color: Colors.white70),
+              ),
             ),
-          ),
-          Expanded(child: Divider(color: Colors.white70)),
-        ],
+            Expanded(child: Divider(color: Colors.white70)),
+          ],
+        ),
       ),
     );
   }
@@ -307,28 +321,32 @@ class _LoginScreenViewState extends State<LoginScreenView>
             onPressed: () {},
             child: Text(
               'Forgot Password?',
-              style: TextStyle(color: Colors.teal.shade700),
+              style: GoogleFonts.roboto(
+                color: Colors.tealAccent,
+              ),
             ),
           ),
         ),
-        SizedBox(height: screenSize.height * 0.02), // 2% of screen height
-        ElevatedButton(
-          onPressed: () {},
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.teal,
-            // padding: EdgeInsets.symmetric(
-            //   horizontal: screenSize.width * 0.1,
-            // ), // 2% of screen height
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
+        SizedBox(height: screenSize.height * 0.01), // 2% of screen height
+        FractionallySizedBox(
+          widthFactor: 0.3,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.teal,
+              // padding: EdgeInsets.symmetric(
+              //   horizontal: screenSize.width * 0.3,//            ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
-          ),
-          child: Text(
-            'Login',
-            style: TextStyle(
-              color: Colors.white,
-              //fontSize: screenSize.width * 0.01
-            ), // 5% of screen width
+            child: const Text(
+              'Login',
+              style: TextStyle(
+                color: Colors.white,
+                //fontSize: screenSize.width * 0.01
+              ), // 5% of screen width
+            ),
           ),
         ),
         SizedBox(height: screenSize.height * 0.02), // 2% of screen height
@@ -336,7 +354,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
         Text(
           'Don’t have an account?',
           style: GoogleFonts.roboto(
-            color: Colors.grey.shade700,
+            color: Colors.white70,
             //fontSize: screenSize.width * 0.01
           ),
         ),
@@ -345,7 +363,8 @@ class _LoginScreenViewState extends State<LoginScreenView>
             child: Text(
               'Create an Account',
               style: GoogleFonts.roboto(
-                color: Colors.teal.shade700,
+                color: Colors.tealAccent,
+                //  backgroundColor: Colors.teal
                 //fontSize: screenSize.width * 0.01,
               ),
             )),
@@ -377,24 +396,37 @@ class _LoginScreenViewState extends State<LoginScreenView>
       IconData icon, bool isGoogle, VoidCallback onPressed, Color fontColor) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, color: iconColor),
-        label: Text(
-          text,
-          style: GoogleFonts.roboto(
-            color: fontColor,
-            // fontSize:
-            //     isWeb ? screenSize.width * 0.01 : screenSize.width * 0.035
+      child: FractionallySizedBox(
+        widthFactor: 0.6,
+        child: ElevatedButton.icon(
+          onPressed: onPressed,
+          icon: Icon(icon, color: iconColor),
+          label: Text(
+            text,
+            style: GoogleFonts.roboto(
+              color: fontColor,
+              // fontSize:
+              //     isWeb ? screenSize.width * 0.01 : screenSize.width * 0.035
+            ),
           ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: bgColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50),
-          ),
-          //padding: EdgeInsets.symmetric(vertical: 30),
-          minimumSize: Size(screenSize.width * 0.7, screenSize.height * 0.065),
+          style: isWeb
+              ? ElevatedButton.styleFrom(
+                  backgroundColor: bgColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  //padding: EdgeInsets.symmetric(vertical: 30),
+                  minimumSize:
+                      Size(screenSize.width * 0.25, screenSize.height * 0.065),
+                )
+              : ElevatedButton.styleFrom(
+                  backgroundColor: bgColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  //padding: EdgeInsets.symmetric(vertical: 30),
+                  //  minimumSize: Size(screenSize.width * 0.7, screenSize.height * 0.065),
+                ),
         ),
       ),
     );
@@ -421,7 +453,9 @@ class _LoginScreenViewState extends State<LoginScreenView>
       TextEditingController textEditingController, FocusNode focusNode,
       {bool isObscureText = false}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: EdgeInsets.symmetric(
+          vertical: screenSize.height * 0.01,
+          horizontal: screenSize.width * 0.03),
       child: TextFormField(
         controller: textEditingController,
         focusNode: focusNode,

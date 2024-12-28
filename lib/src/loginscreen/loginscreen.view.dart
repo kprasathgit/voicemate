@@ -144,13 +144,22 @@ class _LoginScreenViewState extends State<LoginScreenView>
                 //   )
                 Align(
                     alignment: Alignment(0, 0),
-                    child:
-                        FractionallySizedBox(widthFactor: 0.3, child: mainUi()),
+                    child: FractionallySizedBox(
+                        widthFactor: 0.3,
+                        child: Card(
+                            borderOnForeground: false,
+                            elevation: 8,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    24), // Smooth rounded corners
+                                side: const BorderSide(
+                                    color: Colors.transparent)),
+                            color: Colors.white24,
+                            child: mainUi())),
                   )
                 : Align(
                     alignment: Alignment.center,
-                    child:
-                        FractionallySizedBox(widthFactor: 0.4, child: mainUi()),
+                    child: mainUi(),
                   )
           ],
         ),
@@ -159,45 +168,37 @@ class _LoginScreenViewState extends State<LoginScreenView>
   }
 
   Widget mainUi() {
-    return Card(
-      borderOnForeground: false,
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24), // Smooth rounded corners
-          side: const BorderSide(color: Colors.transparent)),
-      color: Colors.white24,
-      child: SafeArea(
-          child:
-              // ListView(
-              //   padding: EdgeInsets.zero,
-              //   children: [
-              //     SizedBox(
-              //       height: screenSize.height * 0.02, // 2% of the screen size
-              //     ),
-              //     _buildLogoSection(),
-              //     _buildAuthButtonsSection(),
-              //     _buildDivider(),
-              //     _buildLoginFields(),
-              //     _buildFooterLinks(),
-              //   ],
-              // ),
-              SingleChildScrollView(
-        padding: const EdgeInsets.all(0),
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenSize.height * 0.02, // 2% of the screen size
-            ),
-            _buildLogoSection(),
-            _buildAuthButtonsSection(),
-            _buildDivider(),
-            _buildLoginFields(),
-            _buildFooterLinks(),
-          ],
-        ),
-      )),
-    );
+    return SafeArea(
+        child:
+            // ListView(
+            //   padding: EdgeInsets.zero,
+            //   children: [
+            //     SizedBox(
+            //       height: screenSize.height * 0.02, // 2% of the screen size
+            //     ),
+            //     _buildLogoSection(),
+            //     _buildAuthButtonsSection(),
+            //     _buildDivider(),
+            //     _buildLoginFields(),
+            //     _buildFooterLinks(),
+            //   ],
+            // ),
+            SingleChildScrollView(
+      padding: const EdgeInsets.all(0),
+      scrollDirection: Axis.vertical,
+      child: Column(
+        children: [
+          SizedBox(
+            height: screenSize.height * 0.02, // 2% of the screen size
+          ),
+          _buildLogoSection(),
+          _buildAuthButtonsSection(),
+          _buildDivider(),
+          _buildLoginFields(),
+          _buildFooterLinks(),
+        ],
+      ),
+    ));
   }
 
   Widget _buildLogoSection() {
@@ -425,7 +426,8 @@ class _LoginScreenViewState extends State<LoginScreenView>
                     borderRadius: BorderRadius.circular(10),
                   ),
                   //padding: EdgeInsets.symmetric(vertical: 30),
-                  //  minimumSize: Size(screenSize.width * 0.7, screenSize.height * 0.065),
+                  minimumSize:
+                      Size(screenSize.width, screenSize.height * 0.055),
                 ),
         ),
       ),
@@ -454,22 +456,25 @@ class _LoginScreenViewState extends State<LoginScreenView>
       {bool isObscureText = false}) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          vertical: screenSize.height * 0.01,
-          horizontal: screenSize.width * 0.03),
-      child: TextFormField(
-        controller: textEditingController,
-        focusNode: focusNode,
-        obscureText: isObscureText,
-        decoration: InputDecoration(
-          //  contentPadding: EdgeInsets.symmetric(vertical: 20),
-          hintText: hintText,
-          //   hintStyle: GoogleFonts.roboto(fontSize: screenSize.width * 0.02),
-          filled: true,
-          fillColor: Colors.white,
-          border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(30),
-              borderSide: BorderSide.none),
-          prefixIcon: Icon(icon, color: Colors.teal),
+        vertical: screenSize.height * 0.01,
+      ),
+      child: FractionallySizedBox(
+        widthFactor: 0.8,
+        child: TextFormField(
+          controller: textEditingController,
+          focusNode: focusNode,
+          obscureText: isObscureText,
+          decoration: InputDecoration(
+            //  contentPadding: EdgeInsets.symmetric(vertical: 20),
+            hintText: hintText,
+            //   hintStyle: GoogleFonts.roboto(fontSize: screenSize.width * 0.02),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+                borderSide: BorderSide.none),
+            prefixIcon: Icon(icon, color: Colors.teal),
+          ),
         ),
       ),
     );

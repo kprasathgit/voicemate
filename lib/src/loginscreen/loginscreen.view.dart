@@ -3,7 +3,12 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:voicemate/src/googleauth/googleauth.controller.dart';
+import 'package:voicemate/src/googleauth/googleauth.service.dart';
+import 'package:voicemate/src/profile/profile.view.dart';
 
 class LoginScreenView extends StatefulWidget {
   const LoginScreenView({super.key});
@@ -32,6 +37,8 @@ class _LoginScreenViewState extends State<LoginScreenView>
   TextEditingController passwordController = TextEditingController(text: "");
   late FocusNode userNameFocus;
   late FocusNode passwordFocus;
+  late GoogleAuthController googleAuthController;
+  final GoogleAuthService googleAuthService = GoogleAuthService();
   @override
   void initState() {
     userNameFocus = FocusNode();
@@ -45,8 +52,17 @@ class _LoginScreenViewState extends State<LoginScreenView>
     //     Tween<double>(begin: 0, end: 2 * pi).animate(controller);
     logoRotationAnimation =
         Tween<double>(begin: 0, end: 6.28).animate(controller);
+    googleAuthController =
+        Provider.of<GoogleAuthController>(context, listen: false);
     userNameFocus.requestFocus();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Dispose the AnimationController before calling super.dispose()
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -263,12 +279,34 @@ class _LoginScreenViewState extends State<LoginScreenView>
     );
   }
 
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
   Widget _buildAuthButtonsSection() {
     return Column(
       children: [
         // Example of Auth Button (You can use your actual login button widgets here)
         _buildAuthButton('Sign in with Google', Colors.white, Colors.red,
-            MdiIcons.google, true, () {}, Colors.black),
+            MdiIcons.google, true, () async {
+          try {
+            final GoogleSignInAccount? user = await _googleSignIn.signIn();
+            if (user != null) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileWidget(
+                    user: user,
+                    onLogout: () async {
+                      await _googleSignIn.signOut();
+                      
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+              );
+            }
+          } catch (error) {
+            print('Sign in failed: $error');
+          }
+        }, Colors.black),
         _buildAuthButton('Sign in with Apple', Colors.white, Colors.black,
             Icons.apple, false, () {}, Colors.black),
       ],

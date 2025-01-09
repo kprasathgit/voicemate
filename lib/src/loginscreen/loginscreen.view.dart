@@ -287,6 +287,11 @@ class _LoginScreenViewState extends State<LoginScreenView>
         _buildAuthButton('Sign in with Google', Colors.white, Colors.red,
             MdiIcons.google, true, () async {
           try {
+            if (kIsWeb) {
+            await  googleAuthController.weSignIn();
+              
+              return;
+            }
             final GoogleSignInAccount? user = await _googleSignIn.signIn();
             if (user != null) {
               Navigator.push(
@@ -296,7 +301,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
                     user: user,
                     onLogout: () async {
                       await _googleSignIn.signOut();
-                      
+
                       Navigator.pop(context);
                     },
                   ),

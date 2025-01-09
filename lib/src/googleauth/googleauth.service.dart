@@ -60,4 +60,11 @@ class GoogleAuthService {
     }
     throw Exception("Failed to validate token with backend: ${response.body}");
   }
+
+  Future webSignIn() async {
+    var response =
+        await http.get(Uri.parse("http://localhost:8085/"));
+
+    if (response.statusCode != 200) {}
+  }
 }

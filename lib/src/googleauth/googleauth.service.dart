@@ -62,9 +62,19 @@ class GoogleAuthService {
   }
 
   Future webSignIn() async {
-    var response =
-        await http.get(Uri.parse("http://localhost:8085/"));
+    try {
+      var response = await http.get(
+        Uri.parse("http://192.168.29.171:8085/usermanagement/"),
+        headers: headers,
+      );
 
-    if (response.statusCode != 200) {}
+      if (response.statusCode == 200) {
+        print("Response: ${response.body}");
+      } else {
+        print("Error: ${response.statusCode}, Body: ${response.body}");
+      }
+    } catch (e) {
+      print("Exception: $e");
+    }
   }
 }

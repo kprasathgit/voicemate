@@ -279,7 +279,8 @@ class _LoginScreenViewState extends State<LoginScreenView>
     );
   }
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
+  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile'],
+  clientId: "470422928140-qn6tf5ltoehpua9uasvl0585o2kf0npf.apps.googleusercontent.com");
   Widget _buildAuthButtonsSection() {
     return Column(
       children: [
@@ -287,11 +288,11 @@ class _LoginScreenViewState extends State<LoginScreenView>
         _buildAuthButton('Sign in with Google', Colors.white, Colors.red,
             MdiIcons.google, true, () async {
           try {
-            if (kIsWeb) {
-            await  googleAuthController.weSignIn();
+            // if (kIsWeb) {
+            // await  googleAuthController.weSignIn();
               
-              return;
-            }
+            //   return;
+            // }
             final GoogleSignInAccount? user = await _googleSignIn.signIn();
             if (user != null) {
               Navigator.push(

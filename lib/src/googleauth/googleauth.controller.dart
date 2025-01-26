@@ -10,8 +10,7 @@ class GoogleAuthController with ChangeNotifier {
     return await googleAuthService.signInWithGoogle();
   }
 
- Future weSignIn() async{
-return await googleAuthService.webSignIn();
-
- }
+  Future weSignIn(String id) async {
+    return await googleAuthService.webSignIn(id);
+  }
 }

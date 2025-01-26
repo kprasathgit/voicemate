@@ -37,7 +37,7 @@ class GoogleAuthService {
       //     }
       //   }
       // }
-      
+
       // auth.idToken;
       // if (idToken != null) {
       //   final String sessionToken = await sendTokenToBackend(idToken);
@@ -60,20 +60,96 @@ class GoogleAuthService {
     throw Exception("Failed to validate token with backend: ${response.body}");
   }
 
-  Future webSignIn() async {  
+  Future webSignIn(String id) async {
     try {
-      var response = await http.get(
-        Uri.  parse("http://localhost:8085/usermanagement/"),
-        headers: headers,
-      );
+      var request = http.Request("POST",
+          Uri.parse("http://localhost:8085/usermanagement/oauth/userregister"));
 
-      if (response.statusCode == 200) {
-        print("Response: ${response.body}");
-      } else {
-        print("Error: ${response.statusCode}, Body: ${response.body}");
+      request.headers.addAll(headers);
+      request.body = id;
+
+      http.StreamedResponse streamedResponse = await request.send();
+      if (streamedResponse.statusCode != 200) {
+        var errbody = json.decode(await streamedResponse.stream.bytesToString())
+            as Map<String, dynamic>;
       }
+
+      // headers.addAll({'Authorization': 'Bearer $id'});
+      // var response = await http.get(
+      //   Uri.parse("http://localhost:8085/usermanagement/oauth/userregister"),
+      //   headers: headers,
+      // );
+
+      // if (response.statusCode == 200) {
+      //   print("Response: ${response.body}");
+      // } else {
+      //   print("Error: ${response.statusCode}, Body: ${response.body}");
+      // }
     } catch (e) {
       print("Exception: $e");
     }
   }
+
+  // Future<List<CustomerDetail>> getUserPlans(String mobileNo) async {
+  //   try {
+  //     // Ensure internet connection
+  //     await Commonwidget.ensureInternet();
+  //     var requestAutorization = await CommonValues.secureKey();
+  //     String encryptedRequest = await CommonValues.encryptRequestData(mobileNo);
+
+  //     var request = http.Request("POST", Uri.parse(CommonUrl.registration));
+  //     request.headers.addAll(headers);
+  //     request.headers.addAll({'Authorization': 'Bearer $requestAutorization'});
+
+  //     if (CommonValues.getCookie()) {
+  //       request.headers.addAll({
+  //         'Cookie':
+  //             'JWebScheme=${SignUpController.loginAppUser!.logInCredential}'
+  //       });
+  //     } else if (CommonValues.appUser != null) {
+  //       request.headers.addAll(
+  //           {'Cookie': 'JWebScheme=${CommonValues.appUser!.LogInCredential}'});
+  //     }
+  //     request.body = encryptedRequest;
+
+  //     http.StreamedResponse streamedResponse = await request.send();
+
+  //     if (streamedResponse.statusCode != 200) {
+  //       // var errbody = json.decode(await streamedResponse.stream.bytesToString())
+  //       //     as Map<String, dynamic>;
+  //       // return Future.error(errbody["returnObject"] ?? "Somethng Went Wrong");
+  //       return Future.error(CommonValues.commonException);
+  //     }
+  //     // var body = json.decode(await streamedResponse.stream.bytesToString());
+
+  //     DataResponseParam body = DataResponseParam.fromMap(
+  //         json.decode(await streamedResponse.stream.bytesToString())
+  //             as Map<String, dynamic>);
+  //     var data = json.decode(await CommonValues.decryptKey(body.toJson()))
+  //         as Map<String, dynamic>;
+
+  //     List<CustomerDetail> lstCustomerDetails = List.empty(growable: true);
+
+  //     if (data.isNotEmpty && data['status']) {
+  //       var lstDynamic = data['returnObject'] as List<dynamic>;
+  //       if (lstDynamic.isEmpty) {
+  //         // return Future.error(const Text('Customer Details Not Found..!'));
+  //         return [];
+  //       }
+  //       for (Map<String, dynamic> element in lstDynamic) {
+  //         lstCustomerDetails.add(CustomerDetail.fromMap(element));
+  //       }
+  //       return lstCustomerDetails;
+  //     }
+  //     if (data.isNotEmpty && !data['status']) {
+  //       return Future.error(data['returnObject']);
+  //     }
+  //     return [];
+  //   } on SocketException {
+  //     return Future.error(CommonValues.socketException);
+  //   } on Exception {
+  //     // return Future.error(e.toString());
+  //     return Future.error(CommonValues.commonException);
+  //   }
+  // }
 }

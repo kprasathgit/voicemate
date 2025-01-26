@@ -26,8 +26,8 @@ dependencies:
   auto_size_text: ^3.0.0
   http: ^1.2.2
   provider: ^6.1.2
-  google_sign_in_web: ^0.12.4+3
   google_sign_in: ^6.2.2
+  cached_network_image: ^3.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -31,15 +31,19 @@ class UserProfileWidget extends StatelessWidget {
             // User Profile Image or Initial
             CircleAvatar(
               radius: 50,
-              backgroundImage: user.photoUrl != null && user.photoUrl!.isNotEmpty
-                  ? NetworkImage(user.photoUrl!)
-                  : null,
+              backgroundImage:
+                  user.photoUrl != null && user.photoUrl!.isNotEmpty
+                      ? NetworkImage(user.photoUrl!)
+                      : null,
               child: user.photoUrl == null || user.photoUrl!.isEmpty
                   ? Text(
                       user.displayName != null && user.displayName!.isNotEmpty
                           ? user.displayName![0].toUpperCase()
                           : '?',
-                      style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 40,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
                     )
                   : null,
               backgroundColor: user.photoUrl == null || user.photoUrl!.isEmpty

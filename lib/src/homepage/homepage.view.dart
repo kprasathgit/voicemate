@@ -24,7 +24,7 @@ class _HomePageViewState extends State<HomePageView> {
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData) {
-            return const ProfileView();
+            return ProfileView(snapshot.data!);
           } else if (snapshot.hasError) {
             ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Something Went Wrong.!")));

@@ -21,11 +21,11 @@ class DefaultFirebaseOptions {
       //   'DefaultFirebaseOptions have not been configured for web - '
       //   'you can reconfigure this by running the FlutterFire CLI again.',
       // );
-      return android;
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return web;
+        return android;
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:

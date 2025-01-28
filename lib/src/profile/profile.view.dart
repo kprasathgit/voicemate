@@ -12,11 +12,13 @@ class ProfileView extends StatelessWidget {
   //   required this.user,
   //   required this.onLogout,
   //});
-  const ProfileView({super.key});
+
+  final User user;
+  const ProfileView(this.user, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
+//    final user = FirebaseAuth.instance.currentUser!;
     return Consumer<GoogleAuthController>(
       builder: (context, googleAuthController, child) {
         return Scaffold(

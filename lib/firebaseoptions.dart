@@ -76,13 +76,12 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: '',
-    appId: '',
-    messagingSenderId: '',
-    projectId: '',
-    storageBucket: '',
-    authDomain: '',
-    databaseURL: '',
-    measurementId: '',
-  );
+      databaseURL: '',
+      apiKey: "AIzaSyD0hKbmfi8ylx0yD-RqzLatAhOPmHg0Xmc",
+      authDomain: "voice-mate-860.firebaseapp.com",
+      projectId: "voice-mate-860",
+      storageBucket: "voice-mate-860.firebasestorage.app",
+      messagingSenderId: "152377724389",
+      appId: "1:152377724389:web:2a84e407ae5d9501d7b30c",
+      measurementId: "G-W9R83533P5");
 }

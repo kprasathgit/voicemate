@@ -43,10 +43,10 @@ class ProfileView extends StatelessWidget {
                 // User Profile Image or Initial
                 CircleAvatar(
                   radius: 50,
-                  backgroundImage:
-                      user.photoURL != null && user.photoURL!.isNotEmpty
-                          ? NetworkImage(user.photoURL!)
-                          : null,
+                  backgroundImage: NetworkImage(user.photoURL!),
+                  // user.photoURL != null && user.photoURL!.isNotEmpty
+                  //     ? NetworkImage(user.photoURL!)
+                  //     : null,
                   child: user.photoURL == null || user.photoURL!.isEmpty
                       ? Text(
                           user.displayName != null &&

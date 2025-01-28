@@ -16,21 +16,35 @@ class GoogleAuthController with ChangeNotifier {
   }
 
   Future googleLogin() async {
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    if (googleUser == null) {
-      return;
-    }
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
+    if (kIsWeb) {
+      GoogleAuthProvider googleAuthProvider = GoogleAuthProvider();
+      googleAuthProvider.setCustomParameters({'prompt': 'select_account'});
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithPopup(googleAuthProvider);
+    } else {
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      if (googleUser == null) {
+        return;
+      }
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
 
-    await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
+    }
+
     notifyListeners();
   }
 
   Future logOut() async {
-    await googleSignIn.disconnect();
-    FirebaseAuth.instance.signOut();
+    if (kIsWeb) {
+      // For Web: Only sign out from FirebaseAuth as googleSignIn is not used
+      await FirebaseAuth.instance.signOut();
+    } else {
+      // For Mobile: Sign out from GoogleSignIn and FirebaseAuth
+      await googleSignIn.disconnect();
+      await FirebaseAuth.instance.signOut();
+    }
   }
 }

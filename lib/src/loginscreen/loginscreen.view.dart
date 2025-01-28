@@ -279,10 +279,10 @@ class _LoginScreenViewState extends State<LoginScreenView>
     );
   }
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
-      scopes: ['email', 'profile'],
-      clientId:
-          "470422928140-qn6tf5ltoehpua9uasvl0585o2kf0npf.apps.googleusercontent.com");
+  // final GoogleSignIn _googleSignIn = GoogleSignIn(
+  //     scopes: ['email', 'profile'],
+  //     clientId:
+  //         "470422928140-qn6tf5ltoehpua9uasvl0585o2kf0npf.apps.googleusercontent.com");
   Widget _buildAuthButtonsSection() {
     return Column(
       children: [
@@ -290,31 +290,33 @@ class _LoginScreenViewState extends State<LoginScreenView>
         _buildAuthButton('Sign in with Google', Colors.white, Colors.red,
             MdiIcons.google, true, () async {
           try {
-            final GoogleSignInAccount? user = await _googleSignIn.signIn();
-            if (kIsWeb) {
-              // Obtain the Google Sign-In authentication details
-              final GoogleSignInAuthentication googleAuth =
-                  await user!.authentication;
-              await googleAuthController.weSignIn(googleAuth.accessToken!);
+            // final GoogleSignInAccount? user = await _googleSignIn.signIn();
+            // if (kIsWeb) {
+            //   // Obtain the Google Sign-In authentication details
+            //   final GoogleSignInAuthentication googleAuth =
+            //       await user!.authentication;
+            //   await googleAuthController.weSignIn(googleAuth.accessToken!);
 
-              return;
-            }
-            if (user != null) {
-              print(user);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => UserProfileWidget(
-                    user: user,
-                    onLogout: () async {
-                      await _googleSignIn.signOut();
+            //   return;
+            // }
+            // if (user != null) {
+            //   print(user);
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => UserProfileWidget(
+            //         user: user,
+            //         onLogout: () async {
+            //           await _googleSignIn.signOut();
 
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
-              );
-            }
+            //           Navigator.pop(context);
+            //         },
+            //       ),
+            //     ),
+            //   );
+            // }
+
+            await googleAuthController.googleLogin();
           } catch (error) {
             print('Sign in failed: $error');
           }

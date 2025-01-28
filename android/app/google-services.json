@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "152377724389",
+    "project_id": "voice-mate-860",
+    "storage_bucket": "voice-mate-860.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152377724389:android:90a259b7fc15e252d7b30c",
+        "android_client_info": {
+          "package_name": "com.mkp.voicemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "152377724389-8qm406np2fp0vb1brqdcr2en1pjv0tlg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpXjSLrwXD9c5bQxo0kba58rS8myGDuD8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152377724389-8qm406np2fp0vb1brqdcr2en1pjv0tlg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

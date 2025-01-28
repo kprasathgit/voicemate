@@ -13,12 +13,12 @@ class InitScreenView extends StatefulWidget {
 class _InitScreenViewState extends State<InitScreenView> {
   @override
   void initState() {
-    Future.delayed(
-      const Duration(seconds: 2),
-      () {
-        Navigator.of(context).popAndPushNamed(LoginScreenView.routeName);
-      },
-    );
+    // Future.delayed(
+    //   const Duration(seconds: 2),
+    //   () {
+    //     Navigator.of(context).popAndPushNamed(LoginScreenView.routeName);
+    //   },
+    // );
     super.initState();
   }
 

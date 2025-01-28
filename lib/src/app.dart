@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'package:voicemate/src/googleauth/googleauth.controller.dart';
 import 'package:voicemate/src/googleauth/googleauth.service.dart';
+import 'package:voicemate/src/homepage/homepage.view.dart';
 import 'package:voicemate/src/initscreen/initscreen.view.dart';
 import 'package:voicemate/src/loginscreen/loginscreen.view.dart';
 
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => GoogleAuthController(GoogleAuthService()),
+          create: (context) =>
+              GoogleAuthController(GoogleAuthService(), GoogleSignIn()),
         )
       ],
       child: MaterialApp(
@@ -60,6 +63,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.system,
+        home: HomePageView(),
 
         // Define a function to handle named routes in order to support
         // Flutter web url navigation and deep linking.
@@ -68,8 +72,12 @@ class MyApp extends StatelessWidget {
             settings: routeSettings,
             builder: (BuildContext context) {
               switch (routeSettings.name) {
+                case HomePageView.routeName:
+                  return const HomePageView();
                 case LoginScreenView.routeName:
                   return const LoginScreenView();
+                case InitScreenView.routeName:
+                  return const InitScreenView();
                 default:
                   return const InitScreenView();
               }

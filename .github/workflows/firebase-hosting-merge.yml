@@ -18,7 +18,7 @@ jobs:
 
       # Step 2: Set up Flutter with a specific version (use stable version)
       - name: Set up Flutter
-        uses: subosito/flutter-action@v4
+        uses: subosito/flutter-action@v2.18.0
 
        # Step 3: Cache Flutter dependencies to speed up builds
       - name: Cache Flutter dependencies

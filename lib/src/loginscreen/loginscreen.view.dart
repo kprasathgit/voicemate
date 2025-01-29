@@ -286,7 +286,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
     return Column(
       children: [
         // Example of Auth Button (You can use your actual login button widgets here)
-        _buildAuthButton('Sign in with Google', Colors.white, Colors.red,
+        _buildAuthButton('Sign in - Google', Colors.white, Colors.red,
             Icons.g_mobiledata, true, () async {
           try {
             // final GoogleSignInAccount? user = await _googleSignIn.signIn();

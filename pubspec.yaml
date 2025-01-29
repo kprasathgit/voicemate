@@ -17,7 +17,7 @@ dependencies:
 
   flutter_spinkit: ^5.2.1
  # font_awesome_flutter: ^10.8.0
-  # material_design_icons_flutter: ^5.0.5955
+  material_design_icons_flutter: ^5.0.5955
   google_fonts: ^6.2.1
   path_provider: ^2.1.5
  # flutter_svg_provider: ^1.0.7

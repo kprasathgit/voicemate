@@ -9,7 +9,7 @@ jobs:
         - uses: actions/checkout@v3
 
         # Install Flutter command
-        - uses: subosito/flutter-action@v2.8.0
+        - uses: subosito/flutter-action@v3.5.4
           with:
             channel: 'dev'
 
@@ -25,7 +25,7 @@ jobs:
         - name: Deploy Firebase Hosting
           uses: w9jds/firebase-action@master
           with:
-            args: deploy --only hosting:web-johannesmilke
+            args: deploy --only hosting
           env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
             PROJECT_PATH: ./

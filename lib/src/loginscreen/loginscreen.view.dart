@@ -321,7 +321,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
             print('Sign in failed: $error');
           }
         }, Colors.black),
-        _buildAuthButton('Sign in - Apple', Colors.white, Colors.black,
+        _buildAuthButton('Sign in with Apple', Colors.white, Colors.black,
             Icons.apple, false, () {}, Colors.black),
       ],
     );

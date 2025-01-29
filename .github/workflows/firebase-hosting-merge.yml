@@ -18,9 +18,7 @@ jobs:
 
       # Step 2: Set up Flutter with a specific version (use stable version)
       - name: Set up Flutter
-        uses: subosito/flutter-action@v2  # Use v2 instead of v3.5.4
-        with:
-          flutter-version: '3.5.1'  # Pin the Flutter version explicitly (if needed)
+        uses: subosito/flutter-action@v4
 
        # Step 3: Cache Flutter dependencies to speed up builds
       - name: Cache Flutter dependencies

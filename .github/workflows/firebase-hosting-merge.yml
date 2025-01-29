@@ -20,7 +20,7 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2  # Use v2 instead of v3.5.4
         with:
-          flutter-version: 'stable'  # Pin the Flutter version explicitly (if needed)
+          flutter-version: '3.5.1'  # Pin the Flutter version explicitly (if needed)
 
        # Step 3: Cache Flutter dependencies to speed up builds
       - name: Cache Flutter dependencies
@@ -30,7 +30,7 @@ jobs:
           key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}  # Cache key based on pubspec.yaml changes
           restore-keys: |
             ${{ runner.os }}-flutter
-            
+
       # Step 3: Install dependencies
       - name: Install Flutter dependencies
         run: flutter pub get

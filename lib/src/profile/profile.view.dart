@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:voicemate/src/googleauth/googleauth.controller.dart';
+import 'package:voicemate/src/oauth/oauth.controller.dart';
 import 'package:voicemate/src/homepage/homepage.view.dart';
 
 class ProfileView extends StatelessWidget {
@@ -19,8 +19,18 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 //    final user = FirebaseAuth.instance.currentUser!;
-    return Consumer<GoogleAuthController>(
-      builder: (context, googleAuthController, child) {
+
+    return Consumer<OAuthController>(
+      builder: (context, oAuthController, child) {
+        // WidgetsBinding.instance.addPostFrameCallback(
+        //   (_) async {
+        //     if (oAuthController.idToken != null &&
+        //         oAuthController.idToken!.isNotEmpty) {
+        //       await oAuthController.saveOauthUser(oAuthController.idToken!);
+        //     }
+        //   },
+        // );
+
         return Scaffold(
           appBar: AppBar(
             title: Text('User Profile'),
@@ -28,7 +38,7 @@ class ProfileView extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.logout),
                 onPressed: () async {
-                  await googleAuthController.logOut();
+                  await oAuthController.logOut();
                   Navigator.of(context).popAndPushNamed(HomePageView.routeName);
                 },
                 tooltip: 'Logout',
@@ -42,28 +52,31 @@ class ProfileView extends StatelessWidget {
               children: [
                 // User Profile Image or Initial
                 CircleAvatar(
-                  radius: 50,
-                  backgroundImage: NetworkImage(user.photoURL!),
-                  // user.photoURL != null && user.photoURL!.isNotEmpty
-                  //     ? NetworkImage(user.photoURL!)
-                  //     : null,
-                  child: user.photoURL == null || user.photoURL!.isEmpty
-                      ? Text(
-                          user.displayName != null &&
-                                  user.displayName!.isNotEmpty
-                              ? user.displayName![0].toUpperCase()
-                              : '?',
-                          style: TextStyle(
-                              fontSize: 40,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white),
-                        )
-                      : null,
-                  backgroundColor:
-                      user.photoURL == null || user.photoURL!.isEmpty
-                          ? Colors.blue
-                          : Colors.transparent,
-                ),
+                    radius: 50,
+                    //  backgroundImage: NetworkImage(user.photoURL!),
+                    // user.photoURL != null && user.photoURL!.isNotEmpty
+                    //     ? NetworkImage(user.photoURL!)
+                    //     : null,
+                    child: Container(
+                      color: Colors.red,
+                    )
+                    // user.photoURL == null || user.photoURL!.isEmpty
+                    //     ? Text(
+                    //         user.displayName != null &&
+                    //                 user.displayName!.isNotEmpty
+                    //             ? user.displayName![0].toUpperCase()
+                    //             : '?',
+                    //         style: TextStyle(
+                    //             fontSize: 40,
+                    //             fontWeight: FontWeight.bold,
+                    //             color: Colors.white),
+                    //       )
+                    //     : null,
+                    // backgroundColor:
+                    //     user.photoURL == null || user.photoURL!.isEmpty
+                    //         ? Colors.blue
+                    //         : Colors.transparent,
+                    ),
                 SizedBox(height: 16),
                 // Display Name
                 Text(

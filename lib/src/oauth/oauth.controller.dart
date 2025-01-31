@@ -1,18 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:voicemate/src/googleauth/googleauth.service.dart';
+import 'package:voicemate/src/oauth/oauth.service.dart';
 
-class GoogleAuthController with ChangeNotifier {
-  GoogleAuthController(this.googleAuthService, this.googleSignIn);
-  final GoogleAuthService googleAuthService;
+class OAuthController with ChangeNotifier {
+  OAuthController(this.oAuthService, this.googleSignIn);
+  final OAuthService oAuthService;
   final GoogleSignIn googleSignIn;
+  String? idToken;
   Future<GoogleSignInAccount?> signInWithGoogle() async {
-    return await googleAuthService.signInWithGoogle();
+    return await oAuthService.signInWithGoogle();
   }
 
   Future weSignIn(String id) async {
-    return await googleAuthService.webSignIn(id);
+    return await oAuthService.webSignIn(id);
   }
 
   Future googleLogin() async {
@@ -46,5 +47,9 @@ class GoogleAuthController with ChangeNotifier {
       await googleSignIn.disconnect();
       await FirebaseAuth.instance.signOut();
     }
+  }
+
+  Future saveOauthUser(String idToken) async {
+    return await oAuthService.saveOauthUser(idToken);
   }
 }

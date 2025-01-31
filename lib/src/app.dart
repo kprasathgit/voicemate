@@ -3,8 +3,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
-import 'package:voicemate/src/googleauth/googleauth.controller.dart';
-import 'package:voicemate/src/googleauth/googleauth.service.dart';
+import 'package:voicemate/src/oauth/oauth.controller.dart';
+import 'package:voicemate/src/oauth/oauth.service.dart';
 import 'package:voicemate/src/homepage/homepage.view.dart';
 import 'package:voicemate/src/initscreen/initscreen.view.dart';
 import 'package:voicemate/src/loginscreen/loginscreen.view.dart';
@@ -24,8 +24,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) =>
-              GoogleAuthController(GoogleAuthService(), GoogleSignIn()),
+          create: (context) => OAuthController(OAuthService(), GoogleSignIn()),
         )
       ],
       child: MaterialApp(

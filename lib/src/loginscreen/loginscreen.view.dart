@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:voicemate/src/googleauth/googleauth.controller.dart';
-import 'package:voicemate/src/googleauth/googleauth.service.dart';
+import 'package:voicemate/src/oauth/oauth.controller.dart';
+import 'package:voicemate/src/oauth/oauth.service.dart';
 import 'package:voicemate/src/profile/profile.view.dart';
 
 class LoginScreenView extends StatefulWidget {
@@ -37,8 +37,8 @@ class _LoginScreenViewState extends State<LoginScreenView>
   TextEditingController passwordController = TextEditingController(text: "");
   late FocusNode userNameFocus;
   late FocusNode passwordFocus;
-  late GoogleAuthController googleAuthController;
-  final GoogleAuthService googleAuthService = GoogleAuthService();
+  late OAuthController googleAuthController;
+  final OAuthService googleAuthService = OAuthService();
   @override
   void initState() {
     userNameFocus = FocusNode();
@@ -52,8 +52,7 @@ class _LoginScreenViewState extends State<LoginScreenView>
     //     Tween<double>(begin: 0, end: 2 * pi).animate(controller);
     logoRotationAnimation =
         Tween<double>(begin: 0, end: 6.28).animate(controller);
-    googleAuthController =
-        Provider.of<GoogleAuthController>(context, listen: false);
+    googleAuthController = Provider.of<OAuthController>(context, listen: false);
     userNameFocus.requestFocus();
     super.initState();
   }

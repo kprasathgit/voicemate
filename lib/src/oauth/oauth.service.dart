@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:voicemate/src/common/url.dart';
 
-class GoogleAuthService {
+class OAuthService {
   var headers = {'Content-Type': 'application/json'};
 
   // final GoogleSignIn googleSignIn = GoogleSignIn(
@@ -87,6 +87,31 @@ class GoogleAuthService {
       // }
     } catch (e) {
       print("Exception: $e");
+    }
+  }
+
+  Future saveOauthUser(String idToken) async {
+    try {
+      var request = http.Request(
+          "POST",
+          Uri.parse(
+              "http://localhost:8085/usermanagement/oauth/saveoauthuser"));
+
+      request.headers.addAll(headers);
+      request.body = idToken;
+
+      http.StreamedResponse streamedResponse = await request.send();
+      print(streamedResponse.statusCode);
+      if (streamedResponse.statusCode != 200) {
+        var errbody = json.decode(await streamedResponse.stream.bytesToString())
+            as Map<String, dynamic>;
+        print(errbody);
+      }
+      var data = json.decode(await streamedResponse.stream.bytesToString())
+          as Map<String, dynamic>;
+      print(data);
+    } catch (e) {
+      throw Exception(e.toString());
     }
   }
 
